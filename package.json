@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "koa-compose": "next",
+    "koa-ignore": "^1.0.1",
+    "path-to-regexp": "^1.7.0"
+  },
+  "name": "k2-router",
+  "version": "0.9.1",
+  "description": "koa@2 router",
+  "main": "index.js",
+  "repository": "https://github.com/smcmurray/k2-router.git",
+  "author": "Sean McMurray",
+  "license": "GPLv3"
+}
