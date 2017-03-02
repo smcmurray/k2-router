@@ -2,6 +2,7 @@
   "dependencies": {
     "koa-compose": "next",
     "koa-ignore": "^1.0.1",
+    "methods": "^1.1.2",
     "path-to-regexp": "^1.7.0"
   },
   "name": "k2-router",
