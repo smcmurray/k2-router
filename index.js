@@ -14,31 +14,28 @@
       }
       if (Array.isArray(path)){
         this.routers = path.map(p=>new Router(p, options))
-        this.path = null
       }
       else {
-        this.routers = null
         if (path){
           this.keys = [];
           this.path = p2re(path, this.keys, options)
         }
       }
       this.mw = []
-
-      methods.forEach(m=>
-        this[m.toLowerCase()] = this.on.bind(this, m)
-      )
     }
 
     use(path, ...mw){
       let chain = 'function' === typeof path
         ? [].concat(path, mw)
-        : [].concat(path).map(p=>new Router(p).use(...mw).routes())
+        : mw.length ? [].concat(path).map(p=>new Router(p).use(...mw).routes()) : []
+
+      if (! chain.length) return this // There is no middleware to chain
 
       if (this.routers){
         this.routers.forEach(r=>r.use(chain))
       }
       else this.mw = this.mw.concat(chain)
+
       return this
     }
 
@@ -82,6 +79,10 @@
       }
     }
   }
+
+  methods.forEach(m=>
+    Router.prototype[m.toLowerCase()] = function(path, ...mw){ return Router.prototype.on.call(this, m, path, ...mw) }
+  )
 
   module.exports = (path, options) => new Router(path, options)
 }())
