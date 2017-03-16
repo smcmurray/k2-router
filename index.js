@@ -18,7 +18,7 @@
       else {
         if (path){
           this.keys = [];
-          this.path = p2re(path, this.keys, options)
+          this.path = p2re(path, this.keys, Object.assign({end: false}, options||{}))
         }
       }
       this.mw = []
