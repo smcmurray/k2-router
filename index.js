@@ -8,7 +8,7 @@
 
   class Router {
     constructor(path, options){
-      if ('object' === typeof path){
+      if (('object' === typeof path) && ! path instanceof RegExp){
         options = path
         path = null
       }
