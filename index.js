@@ -62,6 +62,7 @@
       return async (ctx,next) => {
         let match;
         if (this.path){
+          let routed = ctx.routed
           let path = ctx.routed ? ctx.path.replace(new RegExp(`^${ctx.routed}`), '') : ctx.path;
           match = this.path.exec(path);
           if (! match){
@@ -75,7 +76,7 @@
             return p
           }, ctx.params || {})
         }
-        return compose(this.routers ? this.routers.map(r=>r.routes()) : this.mw)(ctx,next)
+        return compose(this.routers ? this.routers.map(r=>r.routes()) : this.mw)(ctx,()=>{ctx.routed=routed; next()})
       }
     }
   }
