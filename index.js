@@ -60,14 +60,14 @@
 
     routes(){
       return async (ctx,next) => {
-        let match;
+        let match, routed;
         if (this.path){
-          let routed = ctx.routed
           let path = ctx.routed ? ctx.path.replace(new RegExp(`^${ctx.routed}`), '') : ctx.path;
           match = this.path.exec(path);
           if (! match){
             return next()
           }
+          routed = ctx.routed
           ctx.routed = (ctx.routed||'')+match.shift()
           ctx.params = match.reduce((p,k,i)=>{
             let v = k ? decodeURIComponent(k) : null
