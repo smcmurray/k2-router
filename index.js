@@ -76,7 +76,7 @@
             return p
           }, ctx.params || {})
         }
-        return compose(this.routers ? this.routers.map(r=>r.routes()) : this.mw)(ctx,()=>{ctx.routed=routed; next()})
+        return compose(this.routers ? this.routers.map(r=>r.routes()) : this.mw)(ctx,()=>{ctx.routed=routed; return next()})
       }
     }
   }
